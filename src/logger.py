@@ -6,23 +6,13 @@ from typing import Iterable
 from pydantic import BaseModel
 
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger()
-
-
 def log_transform(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        try:
-            log_args(args[1:], kwargs, prefix="Input ")
-            result = func(*args, **kwargs)
-            log_args(args[1:], kwargs, prefix="Output ")
-            return result
-        except Exception as e:
-            logger.exception(
-                f"Exception raised in {func.__name__}. exception: {str(e)}"
-            )
-            raise e
+        log_args(args[1:], kwargs, prefix="Input ")
+        result = func(*args, **kwargs)
+        log_args(args[1:], kwargs, prefix="Output ")
+        return result
 
     return wrapper
 

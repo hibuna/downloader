@@ -8,6 +8,7 @@ litestar = "*"
 uvicorn = "*"
 black = "*"
 pydantic = "*"
+pytest = "*"
 
 [dev-packages]
 
