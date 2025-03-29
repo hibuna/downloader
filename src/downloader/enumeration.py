@@ -1,7 +1,7 @@
 import enum
 
 
-class EnumBase(enum.Enum):
+class EnumBase(int, enum.Enum):
     pass
 
 

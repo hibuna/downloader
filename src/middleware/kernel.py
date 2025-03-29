@@ -8,9 +8,14 @@ class Kernel:
 
 
 class MiddlewareProvider:
-
     @cached_property
-    def preprocess_service_url(self):
+    def preprocess_download_url(self):
         from src.middleware.preprocessor import PreprocessorRequestDownloadUrl
 
         return PreprocessorRequestDownloadUrl()
+
+    @cached_property
+    def postprocess_download_url(self):
+        from src.middleware.postprocessor import PostprocessorRequestDownloadUrl
+
+        return PostprocessorRequestDownloadUrl()

@@ -4,6 +4,7 @@ from src.downloader import downloader
 from src.downloader.enumeration import EnumDownloaderInputResourceType
 from src.downloader.exception import EnumUnexpectedValueException
 from src.downloader.model import InputModel, InputUrlModel
+from src.logger import log_transform
 
 
 class Service:
@@ -11,6 +12,7 @@ class Service:
 
 
 class DownloadServiceController(Service):
+    @log_transform
     def download(self, resource: InputModel):
         service = self._determine_service(resource=resource)
         return service.download(resource=resource)

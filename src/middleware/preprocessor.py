@@ -1,14 +1,16 @@
 from abc import abstractmethod, ABC
 
 from src.api.request import RequestDownloadUrl
-from src.downloader.model import InputUrlModel, Dto
+from src.downloader.model import InputUrlModel, Dto, InputModel
+from src.logger import log_transform
 
 
 class PreprocessorBase(ABC):
     output_type: Dto
 
     @abstractmethod
-    def process(self, request) -> Dto: ...
+    @log_transform
+    def process(self, request) -> InputModel: ...
 
     @abstractmethod
     def _create_dto(self, *args, **kwargs) -> Dto: ...
@@ -17,8 +19,9 @@ class PreprocessorBase(ABC):
 class PreprocessorRequestDownloadUrl(PreprocessorBase):
     output_type = InputUrlModel
 
-    def process(self, request: RequestDownloadUrl) -> InputUrlModel:
-        return self._create_dto(handle=request.handle)
+    @log_transform
+    def process(self, data: RequestDownloadUrl) -> InputUrlModel:
+        return self._create_dto(handle=data.handle)
 
     def _create_dto(self, handle: str) -> InputUrlModel:
         return self.output_type(resource_handle=handle)
