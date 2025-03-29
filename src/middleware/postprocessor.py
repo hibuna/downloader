@@ -23,4 +23,4 @@ class PostprocessorRequestDownloadUrl(PostprocessorBase):
         return self._create_dto(handle=dto.resource_handle)
 
     def _create_dto(self, handle: str) -> InputUrlModel:
-        return InputUrlModel(resource_handle=handle)
+        return self.output_type(resource_handle=handle)
